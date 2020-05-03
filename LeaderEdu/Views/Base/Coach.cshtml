@@ -1,0 +1,211 @@
+﻿@model LeaderEdu.Models.ModelMixForCoach
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - LeaderEdu</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body style="width:500px" class="center">
+    <div id="header" class="center">
+        <div id="nav" class="center">
+            <table style="table-layout:fixed;width:100%;height:100%">
+                <tr>
+                    <td>@Model.user.LastName @Model.user.FirstName</td>
+                    <td>
+                        <form asp-action="Logout" asp-controller="Home">
+                            <input type="submit" value="Выйти" class="btn btn-outline-dark" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="nav" class="center">
+            <table style="table-layout:fixed;width:100%;height:100%">
+                <tr>
+
+                    <td class="td_nav" id="main">1</td>
+                    <td class="td_nav" id="main2">2</td>
+                    <td class="td_nav" id="main3">3</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="content" class="center div_main">
+        <table><tr><td><div id="datetimepickerCoach"></div></td>
+            <td>
+                <table border="1">
+                    <tr>
+                        <td><input type="button" value="08:00" class="btn" /></td>
+                        <td><input type="button" value="09:00" class="btn" /></td>
+                        <td><input type="button" value="10:00" class="btn" /></td>
+                        <td><input type="button" value="11:00" class="btn" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="12:00" class="btn" /></td>
+                        <td><input type="button" value="13:00" class="btn" /></td>
+                        <td><input type="button" value="14:00" class="btn" /></td>
+                        <td><input type="button" value="15:00" class="btn" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="16:00" class="btn" /></td>
+                        <td><input type="button" value="17:00" class="btn" /></td>
+                        <td><input type="button" value="18:00" class="btn" /></td>
+                        <td><input type="button" value="19:00" class="btn" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" value="20:00" class="btn" /></td>
+                        <td><input type="button" value="21:00" class="btn" /></td>
+                        <td><input type="button" value="22:00" class="btn" /></td>
+                        <td><input type="button" value="23:00" class="btn" /></td>
+                    </tr>
+                </table>
+
+                </td></tr>
+        <tr><td><input type='button' id="addCoachTime" value='Добавить' /></td></tr>
+        </table>
+        
+        <input id="timeval" type="hidden" value="" />
+        
+        <div id="results"></div>
+        <div id="dvCategoryResults">
+            @{await Html.RenderPartialAsync("PartialEduTimes", Model);}
+        </div>
+    </div>
+    <div id="content" class="center div_main2">
+        Основное содержимое2
+        <div id="dvCategoryResults">
+            @{await Html.RenderPartialAsync("PartialQuestionnaire", Model.questionnaireLeader);}
+        </div>
+    </div>
+    <div id="content" class="center div_main3">Основное содержимое3</div>
+    <div id="footer" class="center">Футер</div>
+</body>
+</html>
+<script>
+        $(document).ready(function () {
+
+    $(".div_main2").hide();
+    $('.div_main3').hide();
+     $('#datetimepickerCoach').datepicker({
+                inline: true,
+                altField: '#d',
+                onSelect: onDateChange,
+                changeMonth: false,
+                changeYear: false,
+                stepMonths: false,
+            });
+            function onDateChange(dateText, inst) {
+                UpdateTime(dateText);
+            };
+    var date = $("#datetimepickerCoach").val();
+    alert(date);
+    UpdateTime(date);
+
+     $('#main').click(function (e) {
+                e.preventDefault();
+    $('.div_main').show();
+     $('.div_main2').hide();
+      $('.div_main3').hide();
+    });
+
+     $('#main2').click(function (e) {
+                e.preventDefault();
+    $('.div_main2').show();
+     $('.div_main').hide();
+      $('.div_main3').hide();
+    });
+
+     $('#main3').click(function (e) {
+                e.preventDefault();
+    $('.div_main3').show();
+     $('.div_main2').hide();
+      $('.div_main').hide();
+    });
+
+     var AddTime = '@Model.AddTime';
+    alert(AddTime);
+            if (AddTime) {
+
+                $('#addCoachTime').hide();
+            };
+
+    });
+    function UpdateTime(dateText){ // обновить время
+
+     $("#timeval").val("");
+            var settings = {
+                "url": "/Base/GetDisableTimesForCoach",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "BeginDate": dateText
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                $('.btn').prop("disabled", false);
+                    for (var i = 0; i < response.length; i++) {
+
+                    $('input[type="button"][value="' + response[i] + '"]').prop("disabled", true);
+                }
+            });
+
+        };
+
+     $('#addCoachTime').click(function (e) { // добавить время
+
+    alert("add");
+                e.preventDefault();
+                var date = $("#datetimepickerCoach").val();
+
+                var time = $("#timeval").val();
+
+                let bd = new Date(date + " " + time + ' UTC').toISOString();
+                if (time != "") {
+                    var settings = {
+                        "url": "/Base/AddCoachTime",
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                        "data": JSON.stringify({ "CoachGuid": "", "BeginDate": bd, "EndDate": bd, "LeaderGuid": "", "Status": 0 }),
+                    };
+
+                    $.ajax(settings).done(function (data) {
+
+                        $('#dvCategoryResults').empty();
+                        $('#dvCategoryResults').html(data);
+                        UpdateTime(date);
+    alert("finish");
+                    });
+                }
+                else {
+                    alert("Не выбрано время");
+                }
+            });
+  
+      $( ".btn" ).click(function() {// выбор времени
+
+
+      var fired_button = $(this).val();
+      $("#timeval").val(fired_button);
+   
+});
+     
+</script>

@@ -1,0 +1,52 @@
+﻿body {
+}
+/*div {
+    margin: 10px;
+    border: 1px solid #222;
+
+}*/
+
+#header {
+    height: 80px;
+    background-color: #ccc;
+}
+#nav {
+    height: 40px;
+    background-color: #eee;
+}
+#content {
+    
+    background-color: #eee;
+}
+
+#footer {
+    height: 80px;
+    background-color: #ccc;
+}
+.center {
+    width: 100%; /* Ширина элемента в пикселах */
+   /* padding: 10px; /* Поля вокруг текста */
+    margin: auto; /* Выравниваем по центру */
+    background: #fc0; /* Цвет фона */
+}
+.td_nav {
+    border: 1px solid #222;
+}
+.time {
+    width: 100%;
+    height: 150px;
+    border: 1px solid blue;
+    background-color: white;
+}
+
+    .time:active {
+        outline: 4px solid red;
+        outline-offset: -2px;
+    }
+
+    .time:hover {
+        outline: 4px solid blue;
+        outline-offset: 0;
+    }
+
+

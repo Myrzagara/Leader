@@ -1,0 +1,17 @@
+﻿@model QuestionnaireLeader;
+<h2>Создать пользователя</h2>
+<form action="/Helper/Add" method="post">
+    <div class="item">
+        <label>UserId</label>
+        <input name="Id" value="@Model.Id" />
+    </div>
+    <div class="item">
+        <label>Имя</label>
+        <input name="answer1" value="@Model.answer1" />
+    </div>
+    <div class="item">
+        <label>Фамилия</label>
+        <input name="answer2" value="@Model.answer2" />
+    </div>
+    <input type="submit" value="Отправить" />
+</form>

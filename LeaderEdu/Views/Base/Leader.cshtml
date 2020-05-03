@@ -1,0 +1,156 @@
+﻿
+@model ModelMixForLeader
+    <form asp-action="Logout" asp-controller="Home" asp-anti-forgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly" />
+        <div>
+
+            <div class="form-group">
+                <input type="submit" value="Выйти" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    </form>
+
+ 
+
+    <div id="datetimepickerLeader"></div>
+    <input id="time" type="text" value="" />
+    <table border="1">
+        <tr>
+            <td><input type="button" class="btn btn-outline-success" value="08:00"/></td>
+            <td><input type="button" class="btn btn-outline-success" value="09:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="10:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="11:00" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="btn btn-outline-success" value="12:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="13:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="14:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="15:00" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="btn btn-outline-success" value="16:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="17:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="18:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="19:00" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="btn btn-outline-success" value="20:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="21:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="22:00" /></td>
+            <td><input type="button" class="btn btn-outline-success" value="23:00" /></td>
+        </tr>
+
+    </table>
+<input type='button' id="addLeaderTime" value='Добавить' />
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+             var AddTime = '@Model.AddTime';
+            if (AddTime) {
+                $('#addLeaderTime').hide();
+            }
+
+
+            $('#addLeaderTime').click(function (e) {
+                e.preventDefault();
+                var date = $("#datetimepickerLeader").val();
+                var time = $("#time").val();
+
+                let bd = new Date(date + " " + time + ' UTC').toISOString();
+                if (time != "") {
+                    var settings = {
+                        "url": "/Base/AddLeaderTime",
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                        "data": JSON.stringify({ "CoachId": 1, "BeginDate": bd, "EndDate": bd, "LeaderId": 2, "Status": 3 }),
+                    };
+
+                    $.ajax(settings).done(function (data) {
+
+
+                    });
+                }
+                else {
+                    alrt("Не выбрано время");
+                }
+
+            });
+        });
+
+        $(".btn").click(function () {
+            var fired_button = $(this).val();
+            $("#time").val(fired_button);
+
+        });
+
+
+        $(function () {
+
+            var arrayDates = JSON.parse('@Html.Raw(Json.Serialize(Model.disableDates))');
+            $('.btn').prop("disabled", true);
+
+
+            $('#datetimepickerLeader').datepicker({
+                inline: true,
+                altField: '#d',
+                onSelect: onDateChange,
+                changeMonth: false,
+                changeYear: false,
+                stepMonths: false,
+                beforeShowDay: function (date) {
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [arrayDates.indexOf(string) == -1]
+                }
+            });
+
+          //  $("#datetimepickerLeader").datepicker("setDate", null);
+            // remove current-day class (because default date is still highlighted)
+           // $("#datetimepickerLeader").find(".ui-datepicker-current-day").removeClass("ui-datepicker-current-day");
+
+            function onDateChange(dateText, inst) {
+                //let bd = new Date(dateText + ' UTC').toISOString();
+                var settings = {
+                    "url": "/Base/GetDisableTimesForLeader",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    "data": {
+                        "BeginDate": dateText
+                    }
+                };
+
+                $.ajax(settings).done(function (response) {
+
+                    $('.btn').prop("disabled", true);
+
+
+                    for (var i = 0; i < response.length; i++) {
+
+                        $('input[type="button"][value="' + response[i] + '"]').prop("disabled", false);
+            }
+                });
+
+
+
+
+            }
+
+        });
+
+    </script>
+}
+
+
+
+
+
+
