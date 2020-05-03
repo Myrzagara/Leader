@@ -110,7 +110,7 @@
                 UpdateTime(dateText);
             };
     var date = $("#datetimepickerCoach").val();
-    alert(date);
+    
     UpdateTime(date);
 
      $('#main').click(function (e) {
@@ -135,10 +135,10 @@
     });
 
      var AddTime = '@Model.AddTime';
-    alert(AddTime);
+  
             if (AddTime) {
 
-                $('#addCoachTime').hide();
+               // $('#addCoachTime').hide();
             };
 
     });
@@ -169,7 +169,7 @@
 
      $('#addCoachTime').click(function (e) { // добавить время
 
-    alert("add");
+    
                 e.preventDefault();
                 var date = $("#datetimepickerCoach").val();
 
@@ -192,7 +192,7 @@
                         $('#dvCategoryResults').empty();
                         $('#dvCategoryResults').html(data);
                         UpdateTime(date);
-    alert("finish");
+    
                     });
                 }
                 else {

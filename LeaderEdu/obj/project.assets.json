@@ -5033,14 +5033,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mac/Projects/LeaderEdu/LeaderEdu/LeaderEdu.csproj",
+      "projectUniqueName": "/Users/mac/Projects/LeaderEdu/Leader/LeaderEdu/LeaderEdu.csproj",
       "projectName": "LeaderEdu",
-      "projectPath": "/Users/mac/Projects/LeaderEdu/LeaderEdu/LeaderEdu.csproj",
+      "projectPath": "/Users/mac/Projects/LeaderEdu/Leader/LeaderEdu/LeaderEdu.csproj",
       "packagesPath": "/Users/mac/.nuget/packages/",
-      "outputPath": "/Users/mac/Projects/LeaderEdu/LeaderEdu/obj/",
+      "outputPath": "/Users/mac/Projects/LeaderEdu/Leader/LeaderEdu/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mac/.nuget/NuGet/NuGet.Config"
+        "/Users/mac/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

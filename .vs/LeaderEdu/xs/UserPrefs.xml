@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{1182D107-A622-4150-AC38-9D5A025E02AA}|Default">
+  <MonoDevelop.Ide.ItemProperties.LeaderEdu PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="LeaderEdu/Views/Base/Coach.cshtml" Line="195" Column="5" />
+      <File FileName="LeaderEdu/Views/Base/Coach2.cshtml" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Views/Base/Leader.cshtml" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Views/Base/PartialEduTimes.cshtml" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Views/Base/PartialQuestionnaire.cshtml" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Controllers/HelperController.cs" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Controllers/BaseController.cs" Line="1" Column="1" />
+      <File FileName="LeaderEdu/Controllers/HomeController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LeaderEdu" expanded="True" selected="True">
+            <Node name="LeaderEdu" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Base" expanded="True" />
+                <Node name="Home" expanded="True" />
+                <Node name="Shared" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
